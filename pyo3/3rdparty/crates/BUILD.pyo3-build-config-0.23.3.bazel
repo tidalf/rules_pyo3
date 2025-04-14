@@ -12,7 +12,7 @@ load("@rules_rust//rust:defs.bzl", "rust_library")
 package(default_visibility = ["//visibility:public"])
 
 rust_library(
-    name = "pyo3_macros_backend",
+    name = "pyo3_build_config",
     srcs = glob(
         include = ["**/*.rs"],
         allow_empty = True,
@@ -29,6 +29,14 @@ rust_library(
             "WORKSPACE.bazel",
         ],
     ),
+    crate_features = [
+        "abi3",
+        "abi3-py311",
+        "abi3-py312",
+        "default",
+        "extension-module",
+        "resolve-config",
+    ],
     crate_root = "src/lib.rs",
     edition = "2021",
     rustc_flags = [
@@ -36,7 +44,7 @@ rust_library(
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=pyo3-macros-backend",
+        "crate-name=pyo3-build-config",
         "manual",
         "noclippy",
         "norustfmt",
@@ -80,14 +88,11 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-uefi": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "0.23.4",
+    version = "0.23.3",
     deps = [
-        "@rpyo3c__heck-0.5.0//:heck",
-        "@rpyo3c__proc-macro2-1.0.86//:proc_macro2",
-        "@rpyo3c__pyo3-build-config-0.23.4//:pyo3_build_config",
-        "@rpyo3c__pyo3-macros-backend-0.23.4//:build_script_build",
-        "@rpyo3c__quote-1.0.37//:quote",
-        "@rpyo3c__syn-2.0.76//:syn",
+        "@rpyo3c__once_cell-1.19.0//:once_cell",
+        "@rpyo3c__pyo3-build-config-0.23.3//:build_script_build",
+        "@rpyo3c__target-lexicon-0.12.16//:target_lexicon",
     ],
 )
 
@@ -97,6 +102,14 @@ cargo_build_script(
         include = ["**/*.rs"],
         allow_empty = True,
     ),
+    build_script_env = {
+        "PYO3_CROSS": "$(PYO3_CROSS)",
+        "PYO3_CROSS_LIB_DIR": "$(PYO3_CROSS_LIB_DIR)",
+        "PYO3_CROSS_PYTHON_IMPLEMENTATION": "$(PYO3_CROSS_PYTHON_IMPLEMENTATION)",
+        "PYO3_CROSS_PYTHON_VERSION": "$(PYO3_CROSS_PYTHON_VERSION)",
+        "PYO3_NO_PYTHON": "$(PYO3_NO_PYTHON)",
+        "PYO3_PYTHON": "$(PYO3_PYTHON)",
+    },
     compile_data = glob(
         include = ["**"],
         allow_empty = True,
@@ -110,6 +123,14 @@ cargo_build_script(
             "WORKSPACE.bazel",
         ],
     ),
+    crate_features = [
+        "abi3",
+        "abi3-py311",
+        "abi3-py312",
+        "default",
+        "extension-module",
+        "resolve-config",
+    ],
     crate_name = "build_script_build",
     crate_root = "build.rs",
     data = glob(
@@ -123,23 +144,26 @@ cargo_build_script(
             "WORKSPACE",
             "WORKSPACE.bazel",
         ],
-    ),
+    ) + [
+        "@rules_pyo3//pyo3:current_pyo3_toolchain",
+    ],
     edition = "2021",
-    pkg_name = "pyo3-macros-backend",
+    pkg_name = "pyo3-build-config",
     rustc_flags = [
         "--cap-lints=allow",
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=pyo3-macros-backend",
+        "crate-name=pyo3-build-config",
         "manual",
         "noclippy",
         "norustfmt",
     ],
-    version = "0.23.4",
+    toolchains = ["@rules_pyo3//pyo3:current_pyo3_toolchain"],
+    version = "0.23.3",
     visibility = ["//visibility:private"],
     deps = [
-        "@rpyo3c__pyo3-build-config-0.23.4//:pyo3_build_config",
+        "@rpyo3c__target-lexicon-0.12.16//:target_lexicon",
     ],
 )
 

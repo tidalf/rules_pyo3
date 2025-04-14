@@ -295,8 +295,8 @@ def aliases(
 _NORMAL_DEPENDENCIES = {
     "": {
         _COMMON_CONDITION: {
-            "pyo3": Label("@rpyo3c//:pyo3-0.23.4"),
-            "pyo3-ffi": Label("@rpyo3c//:pyo3-ffi-0.23.4"),
+            "pyo3": Label("@rpyo3c//:pyo3-0.23.3"),
+            "pyo3-ffi": Label("@rpyo3c//:pyo3-ffi-0.23.3"),
         },
     },
 }
@@ -498,17 +498,17 @@ def crate_repositories():
 
     maybe(
         http_archive,
-        name = "rpyo3c__pyo3-0.23.4",
+        name = "rpyo3c__pyo3-0.23.3",
         sha256 = "57fe09249128b3173d092de9523eaa75136bf7ba85e0d69eca241c7939c933cc",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/pyo3/0.23.4/download"],
-        strip_prefix = "pyo3-0.23.4",
-        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-0.23.4.bazel"),
+        urls = ["https://static.crates.io/crates/pyo3/0.23.3/download"],
+        strip_prefix = "pyo3-0.23.3",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-0.23.3.bazel"),
     )
 
     maybe(
         http_archive,
-        name = "rpyo3c__pyo3-build-config-0.23.4",
+        name = "rpyo3c__pyo3-build-config-0.23.3",
         patch_args = [
             "-p1",
         ],
@@ -517,39 +517,39 @@ def crate_repositories():
         ],
         sha256 = "1cd3927b5a78757a0d71aa9dff669f903b1eb64b54142a9bd9f757f8fde65fd7",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/pyo3-build-config/0.23.4/download"],
-        strip_prefix = "pyo3-build-config-0.23.4",
-        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-build-config-0.23.4.bazel"),
+        urls = ["https://static.crates.io/crates/pyo3-build-config/0.23.3/download"],
+        strip_prefix = "pyo3-build-config-0.23.3",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-build-config-0.23.3.bazel"),
     )
 
     maybe(
         http_archive,
-        name = "rpyo3c__pyo3-ffi-0.23.4",
+        name = "rpyo3c__pyo3-ffi-0.23.3",
         sha256 = "dab6bb2102bd8f991e7749f130a70d05dd557613e39ed2deeee8e9ca0c4d548d",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/pyo3-ffi/0.23.4/download"],
-        strip_prefix = "pyo3-ffi-0.23.4",
-        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-ffi-0.23.4.bazel"),
+        urls = ["https://static.crates.io/crates/pyo3-ffi/0.23.3/download"],
+        strip_prefix = "pyo3-ffi-0.23.3",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-ffi-0.23.3.bazel"),
     )
 
     maybe(
         http_archive,
-        name = "rpyo3c__pyo3-macros-0.23.4",
+        name = "rpyo3c__pyo3-macros-0.23.3",
         sha256 = "91871864b353fd5ffcb3f91f2f703a22a9797c91b9ab497b1acac7b07ae509c7",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/pyo3-macros/0.23.4/download"],
-        strip_prefix = "pyo3-macros-0.23.4",
-        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-macros-0.23.4.bazel"),
+        urls = ["https://static.crates.io/crates/pyo3-macros/0.23.3/download"],
+        strip_prefix = "pyo3-macros-0.23.3",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-macros-0.23.3.bazel"),
     )
 
     maybe(
         http_archive,
-        name = "rpyo3c__pyo3-macros-backend-0.23.4",
+        name = "rpyo3c__pyo3-macros-backend-0.23.3",
         sha256 = "43abc3b80bc20f3facd86cd3c60beed58c3e2aa26213f3cda368de39c60a27e4",
         type = "tar.gz",
-        urls = ["https://static.crates.io/crates/pyo3-macros-backend/0.23.4/download"],
-        strip_prefix = "pyo3-macros-backend-0.23.4",
-        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-macros-backend-0.23.4.bazel"),
+        urls = ["https://static.crates.io/crates/pyo3-macros-backend/0.23.3/download"],
+        strip_prefix = "pyo3-macros-backend-0.23.3",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-macros-backend-0.23.3.bazel"),
     )
 
     maybe(
@@ -603,6 +603,6 @@ def crate_repositories():
     )
 
     return [
-        struct(repo = "rpyo3c__pyo3-0.23.4", is_dev_dep = False),
-        struct(repo = "rpyo3c__pyo3-ffi-0.23.4", is_dev_dep = False),
+        struct(repo = "rpyo3c__pyo3-0.23.3", is_dev_dep = False),
+        struct(repo = "rpyo3c__pyo3-ffi-0.23.3", is_dev_dep = False),
     ]
