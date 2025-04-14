@@ -101,6 +101,9 @@ py_pyo3_library = rule(
     implementation = _py_pyo3_library_impl,
     cfg = _compilation_mode_transition,
     attrs = {
+        "_allowlist_function_transition": attr.label(
+             default = "@bazel_tools//tools/allowlists/function_transition_allowlist",
+         ),
         "compilation_mode": attr.string(
             doc = (
                 "Specify the mode `extension` will be built in. For details see " +
