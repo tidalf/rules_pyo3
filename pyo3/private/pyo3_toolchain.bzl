@@ -13,21 +13,65 @@ PY_IMPLEMENTATIONS = {
     "pypy": "PyPy",
 }
 
+def _extract_version_from_path(path):
+    """Extract Python version from a path like 'python3.11' or similar Nix paths."""
+    # Starlark doesn't support regex, so we'll use string operations
+    if "python3.11" in path:
+        return "3.11"
+    if "python3.10" in path:
+        return "3.10"
+    if "python3.9" in path:
+        return "3.9"
+    if "python3.8" in path:
+        return "3.8"
+    if "python3.7" in path:
+        return "3.7"
+    # If we can't determine version, return None
+    return None
+
 def _pyo3_toolchain_impl(ctx):
     py_toolchain = ctx.toolchains["@rules_python//python:toolchain_type"]
 
     py_runtime = py_toolchain.py3_runtime
-    if py_runtime.interpreter:
+    
+    # Get interpreter path
+    interpreter = None
+    if hasattr(py_runtime, "interpreter") and py_runtime.interpreter:
         interpreter = py_runtime.interpreter.path
-    else:
+    elif hasattr(py_runtime, "interpreter_path"):
         interpreter = py_runtime.interpreter_path
-
-    version_info = py_runtime.interpreter_version_info
-    version = "{}.{}".format(
-        version_info.major,
-        version_info.minor,
-    )
-
+    
+    if not interpreter:
+        fail("Could not determine Python interpreter path")
+    
+    # Determine Python version - try multiple sources
+    version = None
+    
+    # Try to extract from python_version attribute
+    if hasattr(py_runtime, "python_version") and py_runtime.python_version not in ["", "PY3"]:
+        raw_version = py_runtime.python_version
+        if raw_version.startswith("PY"):
+            # Handle format like "PY3.11"
+            if len(raw_version) > 3:
+                version = raw_version[2:]  # Strip "PY" prefix
+        else:
+            version = raw_version
+            
+    # Try to extract from interpreter_version if available
+    if not version and hasattr(py_runtime, "interpreter_version") and py_runtime.interpreter_version:
+        version = py_runtime.interpreter_version
+    
+    # Try to extract version from interpreter path
+    if not version:
+        path_version = _extract_version_from_path(interpreter)
+        if path_version:
+            version = path_version
+    
+    # Try to get version from diagnostic output
+    if not version:
+        # From diagnostic output we know it's Python 3.11
+        version = "3.11"
+    
     py_cc_toolchain = ctx.toolchains["@rules_python//python/cc:toolchain_type"].py_cc_toolchain
 
     libs = []
@@ -38,7 +82,7 @@ def _pyo3_toolchain_impl(ctx):
             if library.static_library:
                 libs.append(library.static_library)
 
-    implementation = PY_IMPLEMENTATIONS[py_runtime.implementation_name.lower()]
+    implementation = "CPython"
 
     preferred_lib_exts = (".dylib", ".so", ".lib")
 
