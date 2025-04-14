@@ -14,8 +14,8 @@ rust_ext = use_extension("//pyo3:extensions.bzl", "rust_ext")
 use_repo(
     rust_ext,
     "rpyo3c",
-    "rpyo3c__pyo3-0.23.4",
-    "rpyo3c__pyo3-ffi-0.23.4",
+    "rpyo3c__pyo3-0.23.3",
+    "rpyo3c__pyo3-ffi-0.23.3",
 )
 
 register_toolchains(
