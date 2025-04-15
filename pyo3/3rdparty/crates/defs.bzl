@@ -515,7 +515,7 @@ def crate_repositories():
         patches = [
             "@rules_pyo3//pyo3/3rdparty/patches:resolve_cross_compile_config_path.patch",
         ],
-        sha256 = "1cd3927b5a78757a0d71aa9dff669f903b1eb64b54142a9bd9f757f8fde65fd7",
+        sha256 = "dc0e0469a84f208e20044b98965e1561028180219e35352a2afaf2b942beff3b",
         type = "tar.gz",
         urls = ["https://static.crates.io/crates/pyo3-build-config/0.23.3/download"],
         strip_prefix = "pyo3-build-config-0.23.3",
@@ -525,7 +525,7 @@ def crate_repositories():
     maybe(
         http_archive,
         name = "rpyo3c__pyo3-ffi-0.23.3",
-        sha256 = "dab6bb2102bd8f991e7749f130a70d05dd557613e39ed2deeee8e9ca0c4d548d",
+        sha256 = "eb1547a7f9966f6f1a0f0227564a9945fe36b90da5a93b3933fc3dc03fae372d",
         type = "tar.gz",
         urls = ["https://static.crates.io/crates/pyo3-ffi/0.23.3/download"],
         strip_prefix = "pyo3-ffi-0.23.3",
@@ -535,7 +535,7 @@ def crate_repositories():
     maybe(
         http_archive,
         name = "rpyo3c__pyo3-macros-0.23.3",
-        sha256 = "91871864b353fd5ffcb3f91f2f703a22a9797c91b9ab497b1acac7b07ae509c7",
+        sha256 = "fdb6da8ec6fa5cedd1626c886fc8749bdcbb09424a86461eb8cdf096b7c33257",
         type = "tar.gz",
         urls = ["https://static.crates.io/crates/pyo3-macros/0.23.3/download"],
         strip_prefix = "pyo3-macros-0.23.3",
@@ -545,7 +545,7 @@ def crate_repositories():
     maybe(
         http_archive,
         name = "rpyo3c__pyo3-macros-backend-0.23.3",
-        sha256 = "43abc3b80bc20f3facd86cd3c60beed58c3e2aa26213f3cda368de39c60a27e4",
+        sha256 = "38a385202ff5a92791168b1136afae5059d3ac118457bb7bc304c197c2d33e7d",
         type = "tar.gz",
         urls = ["https://static.crates.io/crates/pyo3-macros-backend/0.23.3/download"],
         strip_prefix = "pyo3-macros-backend-0.23.3",
