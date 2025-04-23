@@ -12,7 +12,7 @@ load("@rules_rust//rust:defs.bzl", "rust_library")
 package(default_visibility = ["//visibility:public"])
 
 rust_library(
-    name = "pyo3",
+    name = "pyo3-async-runtimes",
     srcs = glob(
         include = ["**/*.rs"],
         allow_empty = True,
@@ -30,28 +30,16 @@ rust_library(
         ],
     ),
     crate_features = [
-        "abi3",
-        "abi3-py311",
-        "abi3-py312",
-        "default",
-        "extension-module",
-        "indoc",
-        "macros",
-        "pyo3-macros",
-        "unindent",
+        "tokio-runtime",
     ],
     crate_root = "src/lib.rs",
     edition = "2021",
-    proc_macro_deps = [
-        "@rpyo3c__indoc-2.0.5//:indoc",
-        "@rpyo3c__pyo3-macros-0.23.5//:pyo3_macros",
-    ],
     rustc_flags = [
         "--cap-lints=allow",
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=pyo3",
+        "crate-name=pyo3-async-runtimes",
         "manual",
         "noclippy",
         "norustfmt",
@@ -93,31 +81,10 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-none": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "0.23.5",
+    version = "0.23.0",
     deps = [
-        "@rpyo3c__cfg-if-1.0.0//:cfg_if",
-        "@rpyo3c__libc-0.2.158//:libc",
-        "@rpyo3c__memoffset-0.9.1//:memoffset",
-        "@rpyo3c__once_cell-1.19.0//:once_cell",
-        "@rpyo3c__pyo3-0.23.5//:build_script_build",
-        "@rpyo3c__pyo3-ffi-0.23.5//:pyo3_ffi",
-        "@rpyo3c__pyo3-async-runtimes-0.23.0//:pyo3-async-runtimes",
-        "@rpyo3c__unindent-0.2.3//:unindent",
-    ] + select({
-        "@rules_rust//rust/platform:powerpc-unknown-linux-gnu": [
-            "@rpyo3c__portable-atomic-1.7.0//:portable_atomic",  # cfg(not(target_has_atomic = "64"))
-        ],
-        "@rules_rust//rust/platform:riscv32imc-unknown-none-elf": [
-            "@rpyo3c__portable-atomic-1.7.0//:portable_atomic",  # cfg(not(target_has_atomic = "64"))
-        ],
-        "@rules_rust//rust/platform:thumbv7em-none-eabi": [
-            "@rpyo3c__portable-atomic-1.7.0//:portable_atomic",  # cfg(not(target_has_atomic = "64"))
-        ],
-        "@rules_rust//rust/platform:thumbv8m.main-none-eabi": [
-            "@rpyo3c__portable-atomic-1.7.0//:portable_atomic",  # cfg(not(target_has_atomic = "64"))
-        ],
-        "//conditions:default": [],
-    }),
+        "@rpyo3c__pyo3-async-runtimes-0.23.0//:build_script_build",
+    ],
 )
 
 cargo_build_script(
@@ -126,6 +93,14 @@ cargo_build_script(
         include = ["**/*.rs"],
         allow_empty = True,
     ),
+    build_script_env = {
+        "PYO3_CROSS": "$(PYO3_CROSS)",
+        "PYO3_CROSS_LIB_DIR": "$(PYO3_CROSS_LIB_DIR)",
+        "PYO3_CROSS_PYTHON_IMPLEMENTATION": "$(PYO3_CROSS_PYTHON_IMPLEMENTATION)",
+        "PYO3_CROSS_PYTHON_VERSION": "$(PYO3_CROSS_PYTHON_VERSION)",
+        "PYO3_NO_PYTHON": "$(PYO3_NO_PYTHON)",
+        "PYO3_PYTHON": "$(PYO3_PYTHON)",
+    },
     compile_data = glob(
         include = ["**"],
         allow_empty = True,
@@ -145,10 +120,6 @@ cargo_build_script(
         "abi3-py312",
         "default",
         "extension-module",
-        "indoc",
-        "macros",
-        "pyo3-macros",
-        "unindent",
     ],
     crate_name = "build_script_build",
     crate_root = "build.rs",
@@ -163,22 +134,23 @@ cargo_build_script(
             "WORKSPACE",
             "WORKSPACE.bazel",
         ],
-    ),
-    edition = "2021",
-    link_deps = [
-        "@rpyo3c__pyo3-ffi-0.23.5//:pyo3_ffi",
+    ) + [
+        "@rules_pyo3//pyo3:current_pyo3_toolchain",
     ],
-    pkg_name = "pyo3",
+    edition = "2021",
+    links = "python",
+    pkg_name = "pyo3-async-runtimes",
     rustc_flags = [
         "--cap-lints=allow",
     ],
     tags = [
         "cargo-bazel",
-        "crate-name=pyo3",
+        "crate-name=pyo3-async-runtimes",
         "manual",
         "noclippy",
         "norustfmt",
     ],
+    toolchains = ["@rules_pyo3//pyo3:current_pyo3_toolchain"],
     version = "0.23.5",
     visibility = ["//visibility:private"],
     deps = [
