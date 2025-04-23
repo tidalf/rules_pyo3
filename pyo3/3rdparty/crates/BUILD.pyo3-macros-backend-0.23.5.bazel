@@ -78,12 +78,12 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-none": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "0.23.4",
+    version = "0.23.5",
     deps = [
         "@rpyo3c__heck-0.5.0//:heck",
         "@rpyo3c__proc-macro2-1.0.86//:proc_macro2",
-        "@rpyo3c__pyo3-build-config-0.23.4//:pyo3_build_config",
-        "@rpyo3c__pyo3-macros-backend-0.23.4//:build_script_build",
+        "@rpyo3c__pyo3-build-config-0.23.5//:pyo3_build_config",
+        "@rpyo3c__pyo3-macros-backend-0.23.5//:build_script_build",
         "@rpyo3c__quote-1.0.37//:quote",
         "@rpyo3c__syn-2.0.76//:syn",
     ],
@@ -134,10 +134,10 @@ cargo_build_script(
         "noclippy",
         "norustfmt",
     ],
-    version = "0.23.4",
+    version = "0.23.5",
     visibility = ["//visibility:private"],
     deps = [
-        "@rpyo3c__pyo3-build-config-0.23.4//:pyo3_build_config",
+        "@rpyo3c__pyo3-build-config-0.23.5//:pyo3_build_config",
     ],
 )
 
