@@ -58,7 +58,7 @@ def _py_pyo3_library_impl(ctx):
     extension = crate_info.output
     is_windows = extension.basename.endswith(".dll")
 
-    # https://pyo3.rs/v0.23.4/building-and-distribution#manual-builds
+    # https://pyo3.rs/v0.23.5/building-and-distribution#manual-builds
     ext = ctx.actions.declare_file("{}{}".format(
         ctx.label.name,
         ".pyd" if is_windows else ".so",

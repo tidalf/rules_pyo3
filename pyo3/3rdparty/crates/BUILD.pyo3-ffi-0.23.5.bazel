@@ -85,10 +85,10 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-none": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
-    version = "0.23.4",
+    version = "0.23.5",
     deps = [
         "@rpyo3c__libc-0.2.158//:libc",
-        "@rpyo3c__pyo3-ffi-0.23.4//:build_script_build",
+        "@rpyo3c__pyo3-ffi-0.23.5//:build_script_build",
     ],
 )
 
@@ -156,10 +156,10 @@ cargo_build_script(
         "norustfmt",
     ],
     toolchains = ["@rules_pyo3//pyo3:current_pyo3_toolchain"],
-    version = "0.23.4",
+    version = "0.23.5",
     visibility = ["//visibility:private"],
     deps = [
-        "@rpyo3c__pyo3-build-config-0.23.4//:pyo3_build_config",
+        "@rpyo3c__pyo3-build-config-0.23.5//:pyo3_build_config",
     ],
 )
 
