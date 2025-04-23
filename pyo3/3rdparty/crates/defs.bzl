@@ -502,6 +502,9 @@ def crate_repositories():
         urls = ["https://static.crates.io/crates/pyo3/0.23.5/download"],
         strip_prefix = "pyo3-0.23.5",
         build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-0.23.5.bazel"),
+        patch_cmds = [
+            "sed -i '/#\\!\\[warn(missing_docs)\\]/a #![feature(io_error_more)]' src/lib.rs",
+        ],
     )
 
     maybe(
