@@ -542,6 +542,16 @@ def crate_repositories():
 
     maybe(
         http_archive,
+        name = "rpyo3c__pyo3-async-runtimes-0.23.0",
+        sha256 = "977dc837525cfd22919ba6a831413854beb7c99a256c03bf8624ad707e45810e",
+        type = "tar.gz",
+        urls = ["https://static.crates.io/crates/pyo3-async-runtimes/0.23.0/download"],
+        strip_prefix = "pyo3-async-runtimes-0.23.0",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.pyo3-async-runtimes-0.23.0.bazel"),
+    )
+
+    maybe(
+        http_archive,
         name = "rpyo3c__pyo3-macros-backend-0.23.5",
         sha256 = "fca6726ad0f3da9c9de093d6f116a93c1a38e417ed73bf138472cf4064f72028",
         type = "tar.gz",
