@@ -31,6 +31,10 @@ rust_library(
     ),
     crate_features = [
         "tokio-runtime",
+        "abi3",
+        "abi3-py311",
+        "abi3-py312",
+        "extension-module",
     ],
     crate_root = "src/lib.rs",
     edition = "2021",
@@ -81,9 +85,11 @@ rust_library(
         "@rules_rust//rust/platform:x86_64-unknown-none": [],
         "//conditions:default": ["@platforms//:incompatible"],
     }),
+    toolchains = ["@rules_pyo3//pyo3:current_pyo3_toolchain"],
     version = "0.23.0",
     deps = [
         "@rpyo3c__pyo3-async-runtimes-0.23.0//:build_script_build",
+        "@rpyo3c__pyo3-build-config-0.23.5//:pyo3_build_config",
     ],
 )
 
@@ -121,8 +127,7 @@ cargo_build_script(
         "default",
         "extension-module",
     ],
-    crate_name = "build_script_build",
-    crate_root = "build.rs",
+    crate_root = "src/lib.rs",
     data = glob(
         include = ["**"],
         allow_empty = True,
@@ -151,7 +156,7 @@ cargo_build_script(
         "norustfmt",
     ],
     toolchains = ["@rules_pyo3//pyo3:current_pyo3_toolchain"],
-    version = "0.23.5",
+    version = "0.23.0",
     visibility = ["//visibility:private"],
     deps = [
         "@rpyo3c__pyo3-build-config-0.23.5//:pyo3_build_config",
