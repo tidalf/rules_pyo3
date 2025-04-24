@@ -16,7 +16,6 @@ use_repo(
     "rpyo3c",
     "rpyo3c__pyo3-0.23.5",
     "rpyo3c__pyo3-ffi-0.23.5",
-    "rpyo3c__pyo3-async-runtimes-0.23.0",
 )
 
 register_toolchains(

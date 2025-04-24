@@ -602,6 +602,16 @@ def crate_repositories():
 
     maybe(
         http_archive,
+        name = "rpyo3c__thiserror-impl-2.0.12",
+        sha256 = "7f7cf42b4507d8ea322120659672cf1b9dbb93f8f2d4ecfd6e51350ff5b17a1d",
+        type = "tar.gz",
+        urls = ["https://static.crates.io/crates/thiserror-impl/2.0.12/download"],
+        strip_prefix = "thiserror-impl-2.0.12",
+        build_file = Label("//pyo3/3rdparty/crates:BUILD.thiserror-impl-2.0.12.bazel"),
+    )
+
+    maybe(
+        http_archive,
         name = "rpyo3c__unindent-0.2.3",
         sha256 = "c7de7d73e1754487cb58364ee906a499937a0dfabd86bcb980fa99ec8c8fa2ce",
         type = "tar.gz",
