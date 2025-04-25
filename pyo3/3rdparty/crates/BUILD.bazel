@@ -44,6 +44,18 @@ alias(
 )
 
 alias(
+    name = "pyo3-async-runtimes-0.23.0",
+    actual = "@rpyo3c__pyo3-async-runtimes-0.23.0//:pyo3_async_runtimes",
+    tags = ["manual"],
+)
+
+alias(
+    name = "pyo3-async-runtimes",
+    actual = "@rpyo3c__pyo3-async-runtimes-0.23.0//:pyo3_async_runtimes",
+    tags = ["manual"],
+)
+
+alias(
     name = "pyo3-ffi-0.23.5",
     actual = "@rpyo3c__pyo3-ffi-0.23.5//:pyo3_ffi",
     tags = ["manual"],

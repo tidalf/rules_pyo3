@@ -57,6 +57,9 @@ crates_vendor(
         "pyo3-ffi": crate.spec(
             version = "0.23.5",
         ),
+        "pyo3-async-runtimes": crate.spec(
+            version = "0.23.0", features = ["tokio-runtime"]
+        ),
     },
     # Name is short to avoid windows paths being too long
     # https://github.com/bazelbuild/rules_rust/issues/1120
