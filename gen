@@ -1,0 +1,5 @@
+# re vendor and pin the deps following the pyo3/3rdparty/crates/BUILD.bazel file
+bazel run @@//pyo3/3rdparty:crates_vendor
+# pyo3 0.23+ assume we have a more recent rust toolchain
+cd pyo3/3rdparty/crates
+for a in $(ls *.bazel); do cat $a | grep -v "x86_64-unknown-uefi"| grep -v "aarch64-unknown-uefi" > $a.tmp; cp $a.tmp $a ; rm $a.tmp ; done
