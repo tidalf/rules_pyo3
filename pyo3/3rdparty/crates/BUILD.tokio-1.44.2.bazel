@@ -32,6 +32,7 @@ rust_library(
         "default",
         "rt",
         "rt-multi-thread",
+        "sync",
         "time",
     ],
     crate_root = "src/lib.rs",
